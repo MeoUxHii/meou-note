@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MeoU Note</title>
+  
+  <!-- Icons & Favicon from icons folder -->
+  <link rel="icon" type="image/png" sizes="16x16" href="icons/icon16.png">
+  <link rel="icon" type="image/png" sizes="48x48" href="icons/icon48.png">
+  <link rel="apple-touch-icon" sizes="128x128" href="icons/icon128.png">
+
+  <!-- Google Fonts: JetBrains Mono (default), Roboto, Open Sans, Fira Code -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=JetBrains+Mono:ital,wght@0,400;0,500;0,600;1,400;1,600&family=Open+Sans:ital,wght@0,400;0,600;1,400&family=Roboto:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app-layout">
+    <!-- Clean Minimalist Header -->
+    <header class="top-nav">
+      <div class="nav-left">
+        <div class="brand" title="MeoU Note">
+          <img src="icons/icon48.png" alt="MeoU Logo" class="brand-icon">
+          <span class="brand-text">MeoU</span>
+        </div>
+
+        <!-- Notes Tabs -->
+        <div class="tabs-container" id="tabsContainer">
+          <div class="tabs-list" id="tabsList">
+            <!-- Dynamic tabs inserted here -->
+          </div>
+          <button class="btn-tab-add" id="addNoteBtn" title="Ghi chú mới (+)">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+          </button>
+        </div>
+      </div>
+
+      <div class="nav-right">
+        <!-- Quick Formatting Controls -->
+        <div class="format-group">
+          <button class="btn-ctrl" id="btnBold" title="In đậm (Ctrl + B)"><b>B</b></button>
+          <button class="btn-ctrl" id="btnItalic" title="In nghiêng (Ctrl + I)"><i>I</i></button>
+          <button class="btn-ctrl" id="btnUnderline" title="Gạch chân (Ctrl + U)"><u>U</u></button>
+        </div>
+
+        <div class="nav-divider"></div>
+
+        <!-- Font Selector (Wide variety of basic + modern fonts) -->
+        <div class="font-control">
+          <select id="fontSelect" class="font-select" title="Chọn phông chữ">
+            <optgroup label="── Font AI & Code ──">
+              <option value="'JetBrains Mono', monospace" selected>JetBrains Mono</option>
+              <option value="'Fira Code', monospace">Fira Code</option>
+              <option value="Consolas, monospace">Consolas</option>
+              <option value="'Courier New', Courier, monospace">Courier New</option>
+            </optgroup>
+            <optgroup label="── Font Không Chân (Sans) ──">
+              <option value="Arial, sans-serif">Arial</option>
+              <option value="'Segoe UI', -apple-system, sans-serif">Segoe UI</option>
+              <option value="'Roboto', sans-serif">Roboto</option>
+              <option value="'Open Sans', sans-serif">Open Sans</option>
+              <option value="Tahoma, sans-serif">Tahoma</option>
+              <option value="Verdana, sans-serif">Verdana</option>
+              <option value="'Trebuchet MS', sans-serif">Trebuchet MS</option>
+              <option value="Calibri, sans-serif">Calibri</option>
+            </optgroup>
+            <optgroup label="── Font Có Chân (Serif) ──">
+              <option value="'Times New Roman', Times, serif">Times New Roman</option>
+              <option value="Georgia, serif">Georgia</option>
+            </optgroup>
+          </select>
+        </div>
+
+        <!-- Font Size Controls -->
+        <div class="size-group">
+          <button class="btn-ctrl btn-size" id="decreaseFontBtn" title="Giảm cỡ chữ">−</button>
+          <span class="font-size-text" id="fontSizeText">15</span>
+          <button class="btn-ctrl btn-size" id="increaseFontBtn" title="Tăng cỡ chữ">+</button>
+        </div>
+
+        <div class="nav-divider"></div>
+
+        <!-- Utility Buttons: Copy & Download -->
+        <div class="util-group">
+          <button class="btn-ctrl" id="copyBtn" title="Sao chép toàn bộ (Ctrl+Shift+C)">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+          </button>
+          <button class="btn-ctrl" id="downloadBtn" title="Tải về file text (.txt)">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Clean Writing Space (With Card Border & Surface) -->
+    <main class="editor-wrap" id="editorWrap">
+      <div class="editor-card" id="editorCard">
+        <div 
+          class="editor" 
+          id="editor" 
+          contenteditable="true" 
+          spellcheck="false" 
+          role="textbox" 
+          aria-multiline="true"
+          placeholder="Ghi chú linh tinh ở đây... (Ctrl+B in đậm, Ctrl+I in nghiêng, Ctrl+U gạch chân)"
+        ></div>
+      </div>
+    </main>
+
+    <!-- Subtle Minimalist Toast -->
+    <div class="toast" id="toast"></div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

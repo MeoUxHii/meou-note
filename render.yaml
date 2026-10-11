@@ -1,0 +1,6 @@
+services:
+  - type: web
+    name: meou-note
+    env: static
+    buildCommand: ""
+    staticPublishPath: ./

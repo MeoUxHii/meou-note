@@ -1,117 +1,308 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="en" data-theme="dark">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MeoU Note</title>
-  
-  <!-- Icons & Favicon from icons folder -->
+  <title>MeoU Note — Online Notepad</title>
+
   <link rel="icon" type="image/png" sizes="16x16" href="icons/icon16.png">
   <link rel="icon" type="image/png" sizes="48x48" href="icons/icon48.png">
   <link rel="apple-touch-icon" sizes="128x128" href="icons/icon128.png">
 
-  <!-- Google Fonts: JetBrains Mono (default), Roboto, Open Sans, Fira Code -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=JetBrains+Mono:ital,wght@0,400;0,500;0,600;1,400;1,600&family=Open+Sans:ital,wght@0,400;0,600;1,400&family=Roboto:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="app-layout">
-    <!-- Clean Minimalist Header -->
-    <header class="top-nav">
+  <div class="app-layout" id="appLayout">
+
+    <header class="top-nav" id="topNav">
       <div class="nav-left">
+
         <div class="brand" title="MeoU Note">
           <img src="icons/icon48.png" alt="MeoU Logo" class="brand-icon">
-          <span class="brand-text">MeoU</span>
+          <span class="brand-text">MeoU Note</span>
         </div>
 
-        <!-- Notes Tabs -->
-        <div class="tabs-container" id="tabsContainer">
-          <div class="tabs-list" id="tabsList">
-            <!-- Dynamic tabs inserted here -->
+        <div class="nav-divider"></div>
+
+        <div class="tabs-wrapper" id="tabsWrapper">
+          <div class="tabs-list" id="tabsList" role="tablist">
+
           </div>
-          <button class="btn-tab-add" id="addNoteBtn" title="Ghi chú mới (+)">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+          <button class="btn-tab-add" id="addNoteBtn" title="New Note (Ctrl+N)">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
           </button>
         </div>
       </div>
 
       <div class="nav-right">
-        <!-- Quick Formatting Controls -->
-        <div class="format-group">
-          <button class="btn-ctrl" id="btnBold" title="In đậm (Ctrl + B)"><b>B</b></button>
-          <button class="btn-ctrl" id="btnItalic" title="In nghiêng (Ctrl + I)"><i>I</i></button>
-          <button class="btn-ctrl" id="btnUnderline" title="Gạch chân (Ctrl + U)"><u>U</u></button>
+
+        <button class="btn-icon" id="searchBtn" title="Search Notes (Ctrl+K)">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+          <span class="btn-kbd-hint">Ctrl K</span>
+        </button>
+
+        <div class="nav-divider"></div>
+
+        <div class="toolbar-group">
+          <button class="btn-tool" id="btnBold" title="Bold (Ctrl+B)"><b>B</b></button>
+          <button class="btn-tool" id="btnItalic" title="Italic (Ctrl+I)"><i>I</i></button>
+          <button class="btn-tool" id="btnUnderline" title="Underline (Ctrl+U)"><u>U</u></button>
+          <button class="btn-tool" id="btnStrike" title="Strikethrough (Ctrl+Shift+X)"><s>S</s></button>
+          <button class="btn-tool" id="btnCode" title="Insert Code / Pre">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+          </button>
+          <button class="btn-tool" id="btnBullet" title="Bullet List">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="9" y1="6" x2="20" y2="6"></line><line x1="9" y1="12" x2="20" y2="12"></line><line x1="9" y1="18" x2="20" y2="18"></line><circle cx="4" cy="6" r="1.5" fill="currentColor"></circle><circle cx="4" cy="12" r="1.5" fill="currentColor"></circle><circle cx="4" cy="18" r="1.5" fill="currentColor"></circle></svg>
+          </button>
+          <button class="btn-tool" id="btnNumber" title="Numbered List">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="10" y1="6" x2="21" y2="6"></line><line x1="10" y1="12" x2="21" y2="12"></line><line x1="10" y1="18" x2="21" y2="18"></line><text x="2" y="8" font-size="7" font-weight="bold" fill="currentColor" stroke="none">1</text><text x="2" y="14" font-size="7" font-weight="bold" fill="currentColor" stroke="none">2</text><text x="2" y="20" font-size="7" font-weight="bold" fill="currentColor" stroke="none">3</text></svg>
+          </button>
         </div>
 
         <div class="nav-divider"></div>
 
-        <!-- Font Selector (Wide variety of basic + modern fonts) -->
-        <div class="font-control">
-          <select id="fontSelect" class="font-select" title="Chọn phông chữ">
-            <optgroup label="── Font AI & Code ──">
-              <option value="'JetBrains Mono', monospace" selected>JetBrains Mono</option>
-              <option value="'Fira Code', monospace">Fira Code</option>
-              <option value="Consolas, monospace">Consolas</option>
-              <option value="'Courier New', Courier, monospace">Courier New</option>
-            </optgroup>
-            <optgroup label="── Font Không Chân (Sans) ──">
-              <option value="Arial, sans-serif">Arial</option>
-              <option value="'Segoe UI', -apple-system, sans-serif">Segoe UI</option>
-              <option value="'Roboto', sans-serif">Roboto</option>
-              <option value="'Open Sans', sans-serif">Open Sans</option>
-              <option value="Tahoma, sans-serif">Tahoma</option>
-              <option value="Verdana, sans-serif">Verdana</option>
-              <option value="'Trebuchet MS', sans-serif">Trebuchet MS</option>
-              <option value="Calibri, sans-serif">Calibri</option>
-            </optgroup>
-            <optgroup label="── Font Có Chân (Serif) ──">
-              <option value="'Times New Roman', Times, serif">Times New Roman</option>
-              <option value="Georgia, serif">Georgia</option>
-            </optgroup>
+        <div class="font-dropdown-wrap">
+          <select id="fontSelect" class="font-select" title="Font Family">
+            <option value="'JetBrains Mono', monospace" selected>JetBrains Mono</option>
+            <option value="'Inter', -apple-system, BlinkMacSystemFont, sans-serif">Inter (Sans)</option>
+            <option value="'Fira Code', monospace">Fira Code</option>
+            <option value="'Newsreader', Georgia, serif">Newsreader (Serif)</option>
+            <option value="system-ui, -apple-system, sans-serif">System UI</option>
           </select>
         </div>
 
-        <!-- Font Size Controls -->
         <div class="size-group">
-          <button class="btn-ctrl btn-size" id="decreaseFontBtn" title="Giảm cỡ chữ">−</button>
+          <button class="btn-icon-tiny" id="decreaseFontBtn" title="Decrease font size">−</button>
           <span class="font-size-text" id="fontSizeText">15</span>
-          <button class="btn-ctrl btn-size" id="increaseFontBtn" title="Tăng cỡ chữ">+</button>
+          <button class="btn-icon-tiny" id="increaseFontBtn" title="Increase font size">+</button>
         </div>
 
         <div class="nav-divider"></div>
 
-        <!-- Utility Buttons: Copy & Download -->
-        <div class="util-group">
-          <button class="btn-ctrl" id="copyBtn" title="Sao chép toàn bộ (Ctrl+Shift+C)">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+        <button class="btn-icon" id="themeToggleBtn" title="Toggle Dark / Light Mode">
+          <svg class="icon-moon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+          <svg class="icon-sun" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+        </button>
+
+        <button class="btn-icon" id="focusModeBtn" title="Zen Focus Mode (F10)">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path></svg>
+        </button>
+
+        <div class="menu-dropdown-wrap">
+          <button class="btn-icon" id="moreMenuBtn" title="More Options">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1.5"></circle><circle cx="19" cy="12" r="1.5"></circle><circle cx="5" cy="12" r="1.5"></circle></svg>
           </button>
-          <button class="btn-ctrl" id="downloadBtn" title="Tải về file text (.txt)">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
-          </button>
+          <div class="dropdown-popover" id="moreDropdown">
+            <div class="dropdown-info-stat" id="menuWordCount">0 words</div>
+            <div class="dropdown-separator"></div>
+            <button class="dropdown-item" id="copyAllItem">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+              <span>Copy Note</span>
+              <span class="item-shortcut">Ctrl+Shift+C</span>
+            </button>
+            <button class="dropdown-item" id="exportTxtItem">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+              <span>Download Text (.txt)</span>
+            </button>
+            <button class="dropdown-item" id="exportMdItem">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+              <span>Download Markdown (.md)</span>
+            </button>
+            <div class="dropdown-separator"></div>
+            <button class="dropdown-item" id="backupJsonItem">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg>
+              <span>Backup All Notes (.json)</span>
+            </button>
+            <label class="dropdown-item" for="importJsonInput" style="cursor: pointer; margin: 0;">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+              <span>Restore from JSON</span>
+              <input type="file" id="importJsonInput" accept=".json" style="display: none;">
+            </label>
+            <div class="dropdown-separator"></div>
+            <button class="dropdown-item" id="toggleAutoListsItem" title="Automatically detect lists when typing - or 1.">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"></line><line x1="8" y1="12" x2="21" y2="12"></line><line x1="8" y1="18" x2="21" y2="18"></line><line x1="3" y1="6" x2="3.01" y2="6"></line><line x1="3" y1="12" x2="3.01" y2="12"></line><line x1="3" y1="18" x2="3.01" y2="18"></line></svg>
+              <span>Auto-detect Lists</span>
+              <span class="item-status" id="autoListsStatus">Off</span>
+            </button>
+            <button class="dropdown-item" id="shortcutsModalItem">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+              <span>Keyboard Shortcuts</span>
+              <span class="item-shortcut">Ctrl+/</span>
+            </button>
+            <button class="dropdown-item text-danger" id="clearNoteItem">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+              <span>Clear Page Content</span>
+            </button>
+          </div>
         </div>
       </div>
     </header>
 
-    <!-- Main Clean Writing Space (With Card Border & Surface) -->
-    <main class="editor-wrap" id="editorWrap">
-      <div class="editor-card" id="editorCard">
-        <div 
-          class="editor" 
-          id="editor" 
-          contenteditable="true" 
-          spellcheck="false" 
-          role="textbox" 
+    <main class="canvas-wrap" id="canvasWrap">
+      <div class="canvas-inner" id="canvasInner">
+
+        <div class="note-title-wrap">
+          <input
+            type="text"
+            class="note-title-input"
+            id="noteTitleInput"
+            placeholder="Untitled Note"
+            autocomplete="off"
+            spellcheck="false"
+            maxlength="100"
+          >
+          <div class="note-date-hint" id="noteDateHint">Updated today</div>
+        </div>
+
+        <div
+          class="editor"
+          id="editor"
+          contenteditable="true"
+          spellcheck="false"
+          role="textbox"
           aria-multiline="true"
-          placeholder="Ghi chú linh tinh ở đây... (Ctrl+B in đậm, Ctrl+I in nghiêng, Ctrl+U gạch chân)"
+          data-placeholder="Start typing your thoughts here... (Markdown: # for Heading, > for quote)"
         ></div>
+
+        <div class="image-resizer-box" id="imageResizerBox" style="display: none;">
+          <div class="resize-handle handle-nw" data-handle="nw"></div>
+          <div class="resize-handle handle-n" data-handle="n"></div>
+          <div class="resize-handle handle-ne" data-handle="ne"></div>
+          <div class="resize-handle handle-e" data-handle="e"></div>
+          <div class="resize-handle handle-se" data-handle="se"></div>
+          <div class="resize-handle handle-s" data-handle="s"></div>
+          <div class="resize-handle handle-sw" data-handle="sw"></div>
+          <div class="resize-handle handle-w" data-handle="w"></div>
+
+          <div class="image-action-bar">
+            <button class="btn-img-act" data-size="25%">25%</button>
+            <button class="btn-img-act" data-size="50%">50%</button>
+            <button class="btn-img-act" data-size="75%">75%</button>
+            <button class="btn-img-act" data-size="100%">100%</button>
+            <div class="img-act-sep"></div>
+            <button class="btn-img-act btn-img-del" id="deleteImgBtn" title="Delete Image">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+            </button>
+          </div>
+        </div>
       </div>
     </main>
 
-    <!-- Subtle Minimalist Toast -->
-    <div class="toast" id="toast"></div>
+    <footer class="bottom-bar" id="bottomBar">
+      <div class="status-left">
+
+      </div>
+
+      <div class="status-right">
+        <div class="sync-indicator" id="syncStatus">
+          <span class="sync-dot"></span>
+          <span class="sync-text">Saved</span>
+        </div>
+        <button class="btn-shortcuts-hint" id="shortcutsBtn" title="Keyboard Shortcuts (Ctrl+/)">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+          <span>Shortcuts</span>
+        </button>
+      </div>
+    </footer>
+
+    <button class="btn-exit-focus" id="exitFocusBtn" title="Exit Focus Mode (F10 / Esc)">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 3v3a2 2 0 0 1-2 2H3m18 0h-3a2 2 0 0 1-2-2V3m0 18v-3a2 2 0 0 1 2-2h3M3 16h3a2 2 0 0 1 2 2v3"></path></svg>
+      <span>Exit Zen Mode</span>
+    </button>
+
+    <div class="delete-confirm-popover" id="deleteConfirmPopover" aria-hidden="true">
+      <p class="popover-msg">Delete this note?</p>
+      <div class="popover-actions">
+        <button class="btn-popover-cancel" id="cancelDeleteBtn">Cancel</button>
+        <button class="btn-popover-delete" id="confirmDeleteBtn">Delete</button>
+      </div>
+    </div>
+
+    <div class="modal-overlay" id="searchModal" aria-hidden="true">
+      <div class="search-modal-box">
+        <div class="search-input-wrap">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+          <input type="text" id="searchInput" class="search-input" placeholder="Search notes by title or content..." autocomplete="off">
+          <span class="modal-esc-hint">ESC to close</span>
+        </div>
+        <div class="search-results-list" id="searchResultsList">
+
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-overlay" id="shortcutsModal" aria-hidden="true">
+      <div class="shortcuts-modal-box">
+        <div class="modal-header">
+          <h3>Keyboard Shortcuts</h3>
+          <button class="btn-modal-close" id="closeShortcutsBtn">✕</button>
+        </div>
+        <div class="shortcuts-grid">
+          <div class="shortcut-row">
+            <span>Bold</span>
+            <kbd>Ctrl + B</kbd>
+          </div>
+          <div class="shortcut-row">
+            <span>Italic</span>
+            <kbd>Ctrl + I</kbd>
+          </div>
+          <div class="shortcut-row">
+            <span>Underline</span>
+            <kbd>Ctrl + U</kbd>
+          </div>
+          <div class="shortcut-row">
+            <span>Strikethrough</span>
+            <kbd>Ctrl + Shift + X</kbd>
+          </div>
+          <div class="shortcut-row">
+            <span>Instant Save</span>
+            <kbd>Ctrl + S</kbd>
+          </div>
+          <div class="shortcut-row">
+            <span>Quick Search</span>
+            <kbd>Ctrl + K</kbd>
+          </div>
+          <div class="shortcut-row">
+            <span>New Note</span>
+            <kbd>Ctrl + N</kbd>
+          </div>
+          <div class="shortcut-row">
+            <span>Copy Entire Note</span>
+            <kbd>Ctrl + Shift + C</kbd>
+          </div>
+          <div class="shortcut-row">
+            <span>Zen Focus Mode</span>
+            <kbd>F10</kbd>
+          </div>
+          <div class="shortcut-row">
+            <span>Indent Line</span>
+            <kbd>Tab</kbd>
+          </div>
+          <div class="shortcut-row">
+            <span>Outdent Line</span>
+            <kbd>Shift + Tab</kbd>
+          </div>
+          <div class="shortcut-row">
+            <span>Heading 1 / 2</span>
+            <kbd>Type # or ## + Space</kbd>
+          </div>
+          <div class="shortcut-row">
+            <span>Bullet List</span>
+            <kbd>Toolbar or Auto-detect</kbd>
+          </div>
+          <div class="shortcut-row">
+            <span>Blockquote</span>
+            <kbd>Type > + Space</kbd>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
   </div>
 
   <script src="app.js"></script>

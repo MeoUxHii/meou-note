@@ -2,5 +2,5 @@ services:
   - type: web
     name: meou-note
     env: static
-    buildCommand: ""
+    buildCommand: "npm install && npm run build"
     staticPublishPath: ./

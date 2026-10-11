@@ -1,0 +1,13 @@
+{
+  "name": "meou-note",
+  "version": "1.0.0",
+  "description": "Minimalist online notepad",
+  "scripts": {
+    "build": "node scripts/build-js.js",
+    "watch": "node scripts/watch.js"
+  },
+  "devDependencies": {
+    "esbuild": "^0.28.2",
+    "javascript-obfuscator": "^5.9.0"
+  }
+}

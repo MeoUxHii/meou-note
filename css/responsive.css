@@ -1,0 +1,40 @@
+@media (max-width: 900px) {
+  .btn-kbd-hint {
+    display: none;
+  }
+}
+
+@media (max-width: 860px) {
+  .canvas-inner {
+    border-left: none;
+    border-right: none;
+    padding: 32px 24px 80px 24px;
+  }
+}
+
+@media (max-width: 768px) {
+  .toolbar-group {
+    display: none;
+  }
+  .shortcuts-grid {
+    grid-template-columns: 1fr;
+  }
+  .canvas-inner {
+    padding: 24px 16px 60px 16px;
+  }
+  .note-title-input {
+    font-size: 24px;
+  }
+}
+
+@media (max-width: 520px) {
+  .font-dropdown-wrap {
+    display: none;
+  }
+  .size-group {
+    display: none;
+  }
+  .stat-item:last-child, .stat-dot:last-of-type {
+    display: none;
+  }
+}
